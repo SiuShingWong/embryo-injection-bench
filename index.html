@@ -1,4 +1,7 @@
+<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Embryo Injection Bench</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,7 +97,7 @@ aside{display:flex;flex-direction:column;gap:12px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 .tip{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:10px 12px;font-size:14px}
 .tip strong{font-family:var(--display);font-size:16px;letter-spacing:.03em;display:block;margin-bottom:2px}
-.keys{font-family:var(--mono);font-size:12.5px;display:grid;grid-template-columns:auto 1fr;gap:5px 14px}
+.keys{font-family:var(--mono);font-size:12.5px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;overflow-wrap:anywhere}
 kbd{font-family:var(--mono);background:#0e1114;border:1px solid #3a434d;border-bottom-width:2px;border-radius:3px;padding:0 5px;font-size:12px}
 .settings{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;margin-top:8px}
 .settings label{display:flex;gap:8px;align-items:center;font-size:14px}
@@ -114,6 +117,27 @@ select{background:#0e1114;color:var(--text);border:1px solid #3a434d;border-radi
 .suck{height:70px;width:70px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#bfe0f7,var(--steel) 50%,#3d6485);color:#0c1a26;border:3px solid #2b4a63;font-size:13px;flex-direction:column}
 .suck.held{filter:brightness(1.15);box-shadow:0 0 18px rgba(134,174,205,.55)}
 .enterhint{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:4px}
+/* ---- phone / small screens ---- */
+select{max-width:100%}
+.settings label{flex-wrap:wrap;max-width:100%;min-width:0}
+button,.key{touch-action:manipulation;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.wrap,.sheet,aside,.card{min-width:0}
+@media (max-width:560px){
+  body{font-size:14px}
+  .brand{font-size:22px}
+  .clock{width:100%;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .lcd{min-width:0;flex:1 1 150px}
+  .pad{grid-template-columns:minmax(0,1fr) auto;gap:10px 12px}
+  .pad .dpad{grid-column:1;grid-row:1}
+  .pad .press{grid-column:2;grid-row:1;width:84px;height:84px;min-width:0;font-size:12px;letter-spacing:0}
+  .pad .suck{font-size:12px}
+  .pad .knob{grid-column:1;grid-row:2}
+  .pad .suck{grid-column:2;grid-row:2;justify-self:end}
+  .pad .padlabel{grid-row:3}
+  .step{font-size:12px;padding:3px 6px}
+  .sheet{padding:18px 16px}
+  .tl{font-size:10px}
+}
 /* Dr. R and the results-screen fly */
 .drr{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:6px}
 .drr img{width:132px;height:132px;border-radius:50%;flex:none;max-width:100%;box-shadow:0 0 0 3px #0b0e10,0 6px 18px rgba(0,0,0,.4)}
@@ -128,7 +152,7 @@ select{background:#0e1114;color:var(--text);border:1px solid #3a434d;border-radi
 
 <div class="wrap">
   <header>
-    <div class="brand">Embryo Injection Bench<small>Drosophila · syncytial blastoderm · RNA / bead injection · v6.2</small></div>
+    <div class="brand">Embryo Injection Bench<small>Drosophila · syncytial blastoderm · RNA / bead injection · v6.3</small></div>
     <nav class="steps" id="steps" aria-label="Protocol steps"></nav>
     <div class="clock">
       <div class="lcd" aria-live="off"><span class="k">Lab clock · since flies on plate</span><span class="v" id="clk">T+ 00:00</span><span class="s" id="clksub">—</span></div>
@@ -255,7 +279,7 @@ select{background:#0e1114;color:var(--text);border:1px solid #3a434d;border-radi
 
 <script>
 /* ============================================================================
-   EMBRYO INJECTION BENCH  —  single-file training game (v6.2)
+   EMBRYO INJECTION BENCH  —  single-file training game (v6.3)
    Drosophila embryo microinjection: break needle → test flow → line up →
    desiccate → inject → develop & image. Built for the Raff lab (Oxford).
 
